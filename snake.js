@@ -27,6 +27,7 @@ function findDuplicates(arr){
   return o;
 }
 function draw() {
+  background(0);
   if(frameCount % 10 === 0){
     background(0);
     if(inputQueue[0] === "w" && "w" !== nDir){
@@ -59,16 +60,16 @@ function draw() {
     if(snakePoints.length > len) {
       snakePoints.shift();
     }
-    stroke(255, 0, 0);
-    point(apple.x, apple.y);
-    stroke(255);
-    if(snakePoints.length > 1){
-      for(var i = 0; i < snakePoints.length-1; i++){
-        line(snakePoints[i].x, snakePoints[i].y, snakePoints[i+1].x, snakePoints[i+1].y);
-      }
-    }else{
-      point(snakePoints[0].x, snakePoints[0].y);
+  }
+  stroke(255, 0, 0);
+  point(apple.x, apple.y);
+  stroke(255);
+  if(snakePoints.length > 1){
+    for(var i = 0; i < snakePoints.length-1; i++){
+      line(snakePoints[i].x, snakePoints[i].y, snakePoints[i+1].x, snakePoints[i+1].y);
     }
+  }else{
+    point(snakePoints[0].x, snakePoints[0].y);
   }
   if(snakePoints.find((e)=>{return (constrain(e.x,0,width)!==e.x)||(constrain(e.y,0,height)!==e.y)})||findDuplicates(snakePoints)){
     noLoop();
@@ -94,6 +95,6 @@ function keyPressed(){
     snakePoints.push(createVector(roundToNearest(width*0.25, stepSize), roundToNearest(height*0.5, stepSize)));
     apple = createVector(roundToNearest(random(0, width), stepSize), roundToNearest(random(0, height), stepSize));
     strokeWeight(stepSize*0.5);
-    noLoop();
+    loop();
   }
 }
